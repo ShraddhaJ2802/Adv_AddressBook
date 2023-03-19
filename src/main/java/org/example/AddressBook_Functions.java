@@ -1,18 +1,25 @@
 package org.example;
 
-import com.fasterxml.jackson.core.*;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
-import com.opencsv.CSVWriter;
+
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import org.json.simple.JSONObject;
 
 import java.io.*;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -138,184 +145,10 @@ public class AddressBook_Functions {
     public void readFromJSONFile() {
 
         try (Reader reader = Files.newBufferedReader(Paths.get("C:\\Users\\Icon\\IdeaProjects\\Adv_AddressBook_Problem\\src\\main\\resources\\Contact.json"))) {
-            JsonParser jsonParser = new JsonParser() {
-                @Override
-                public ObjectCodec getCodec() {
-                    return null;
-                }
-
-                @Override
-                public void setCodec(ObjectCodec oc) {
-
-                }
-
-                @Override
-                public Version version() {
-                    return null;
-                }
-
-                @Override
-                public void close() throws IOException {
-
-                }
-
-                @Override
-                public boolean isClosed() {
-                    return false;
-                }
-
-                @Override
-                public JsonStreamContext getParsingContext() {
-                    return null;
-                }
-
-                @Override
-                public JsonLocation getTokenLocation() {
-                    return null;
-                }
-
-                @Override
-                public JsonLocation getCurrentLocation() {
-                    return null;
-                }
-
-                @Override
-                public JsonToken nextToken() throws IOException {
-                    return null;
-                }
-
-                @Override
-                public JsonToken nextValue() throws IOException {
-                    return null;
-                }
-
-                @Override
-                public JsonParser skipChildren() throws IOException {
-                    return null;
-                }
-
-                @Override
-                public JsonToken getCurrentToken() {
-                    return null;
-                }
-
-                @Override
-                public int getCurrentTokenId() {
-                    return 0;
-                }
-
-                @Override
-                public boolean hasCurrentToken() {
-                    return false;
-                }
-
-                @Override
-                public boolean hasTokenId(int id) {
-                    return false;
-                }
-
-                @Override
-                public boolean hasToken(JsonToken t) {
-                    return false;
-                }
-
-                @Override
-                public void clearCurrentToken() {
-
-                }
-
-                @Override
-                public JsonToken getLastClearedToken() {
-                    return null;
-                }
-
-                @Override
-                public void overrideCurrentName(String name) {
-
-                }
-
-                @Override
-                public String getCurrentName() throws IOException {
-                    return null;
-                }
-
-                @Override
-                public String getText() throws IOException {
-                    return null;
-                }
-
-                @Override
-                public char[] getTextCharacters() throws IOException {
-                    return new char[0];
-                }
-
-                @Override
-                public int getTextLength() throws IOException {
-                    return 0;
-                }
-
-                @Override
-                public int getTextOffset() throws IOException {
-                    return 0;
-                }
-
-                @Override
-                public boolean hasTextCharacters() {
-                    return false;
-                }
-
-                @Override
-                public Number getNumberValue() throws IOException {
-                    return null;
-                }
-
-                @Override
-                public NumberType getNumberType() throws IOException {
-                    return null;
-                }
-
-                @Override
-                public int getIntValue() throws IOException {
-                    return 0;
-                }
-
-                @Override
-                public long getLongValue() throws IOException {
-                    return 0;
-                }
-
-                @Override
-                public BigInteger getBigIntegerValue() throws IOException {
-                    return null;
-                }
-
-                @Override
-                public float getFloatValue() throws IOException {
-                    return 0;
-                }
-
-                @Override
-                public double getDoubleValue() throws IOException {
-                    return 0;
-                }
-
-                @Override
-                public BigDecimal getDecimalValue() throws IOException {
-                    return null;
-                }
-
-                @Override
-                public byte[] getBinaryValue(Base64Variant bv) throws IOException {
-                    return new byte[0];
-                }
-
-                @Override
-                public String getValueAsString(String def) throws IOException {
-                    return null;
-                }
-            };
-            Object obj =  jsonParser.getParsingContext();
-            JsonObject empOBJ = (JsonObject)obj;
+            JsonParser jsonParser = new JsonParser();
+           Object obj =  jsonParser.parse(reader);
+           JsonObject empOBJ = (JsonObject)obj;
+           // JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
             for (Map.Entry<String, JsonElement> str: empOBJ.entrySet()) {
                 System.out.println(str.getKey()+"\t"+str.getValue()+"\n");
                 System.out.println();
@@ -325,5 +158,5 @@ public class AddressBook_Functions {
         catch (Exception e){
             e.printStackTrace();
         }
-    }
+}
 }
