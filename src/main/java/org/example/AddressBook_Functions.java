@@ -35,6 +35,41 @@ public class AddressBook_Functions {
         return new ArrayList<Contact_book>(con);
     }
 
+
+    public void addContact() {
+        Scanner scan = new Scanner(System.in);
+
+
+        System.out.println("Enter First Name");
+        String first = scan.nextLine();
+        System.out.println("Enter Last Name");
+        String last = scan.nextLine();
+        System.out.println("Enter Address");
+        String address = scan.nextLine();
+        System.out.println("Enter City");
+        String city = scan.nextLine();
+        System.out.println("Enter State");
+        String state = scan.nextLine();
+        System.out.println("Enter Zip Code");
+        int zip = scan.nextInt();
+        System.out.println("Enter Phone Number");
+        long mobileNo = scan.nextLong();
+        System.out.println("Enter E-mail");
+        String email = scan.next();
+        Contact_book contact = new Contact_book(first, last, address, city, state, email, mobileNo, zip);
+        con.add(contact);
+        System.out.println("Contact added Successfully");
+        // System.out.println("\n You can add multiple person's entry");
+    }
+
+    public void displayPerson() {
+        System.out.println("\n Person Details is:");
+        for (Contact_book person : con) {
+            System.out.println(person.toString());
+
+        }
+    }
+
     public void newAddressBook() {
         System.out.println("Enter AddressBook Name");
         Scanner scan = new Scanner(System.in);
@@ -159,4 +194,64 @@ public class AddressBook_Functions {
             e.printStackTrace();
         }
 }
+
+    public void writeDataToFile() {
+
+        File file = new File("C:\\Users\\Icon\\IdeaProjects\\Adv_AddressBook_Problem\\src\\main\\resources\\Contact.txt");
+        BufferedWriter bufferedWriter = null;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1.For Single contact add 2.For multiple Add:");
+        int num = sc.nextInt();
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter("C:\\Users\\Icon\\IdeaProjects\\Adv_AddressBook_Problem\\src\\main\\resources\\Contact.txt"));
+            if (num == 2) {
+                for (Map.Entry<String, ArrayList<Contact_book>> entry : hm.entrySet()) {
+                    bufferedWriter.write(entry.getKey() + " : " + entry.getValue());
+                    bufferedWriter.newLine();
+                }
+                System.out.println("---File Added Successfully---");
+                bufferedWriter.flush();
+            } else {
+                for (Contact_book person : con) {
+                    String entry = person.toString();
+                    bufferedWriter.write(entry);
+                    bufferedWriter.newLine();
+                }
+                System.out.println("---File Added Successfully---");
+                bufferedWriter.flush();
+            }
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                bufferedWriter.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    public void readFromFile() {
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new FileReader("C:\\Users\\Icon\\IdeaProjects\\Adv_AddressBook_Problem\\src\\main\\resources\\Contact.txt"));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+
+    }
+
+
 }
