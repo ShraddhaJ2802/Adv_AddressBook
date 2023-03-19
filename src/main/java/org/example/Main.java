@@ -7,7 +7,9 @@ public class Main {
         AddressBook_Functions address = new AddressBook_Functions();
         address.newAddressBook();
         address.displayAddressBook();
-        address.writeDataToCSVFile();
-        address.readFromCSVFile();
+      //  address.writeDataToCSVFile();
+      //  address.readFromCSVFile();
+        address.writeDataToJSONFile();
+        address.readFromJSONFile();
     }
 }
